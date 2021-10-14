@@ -26,7 +26,7 @@ public class StudentServiceDelegate
         System.out.println("Target Service name: "+targetServiceName);
         System.out.println("Consul Demo - Getting School details for " + schoolname);
         //String serverUrl = "http://{targetServiceName}/getStudentDetailsForSchool/{schoolname}";
-        String response = restTemplate.exchange("http://"+targetServiceName+"/getStudentDetailsForSchool/{schoolname}",HttpMethod.GET, null, new ParameterizedTypeReference<String>() {}, schoolname).getBody();
+        String response = restTemplate.exchange(targetServiceName+"/getStudentDetailsForSchool/{schoolname}",HttpMethod.GET, null, new ParameterizedTypeReference<String>() {}, schoolname).getBody();
         System.out.println("Response Received as " + response + " -  " + new Date());
         return "School Name -  " + schoolname + " :::  Student Details " + response + " -  " + new Date();
     }
