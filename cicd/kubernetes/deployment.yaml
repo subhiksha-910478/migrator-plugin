@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: migrator-plugin-deployment
+  labels:
+    app: migrator-plugin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+       app: migrator-plugin
+  template:
+    metadata:
+       labels:
+         app: migrator-plugin
+    spec:
+       containers:
+         - name: migrator-plugin
+           image: subhiksha610/school-service
+           ports:
+             - containerPort: 8080
+           resources:
+             requests:
+               cpu: 128m
+               memory: 256M
+             limits:
+               cpu: "1"
+               memory: 1G
+           livenessProbe:
+             tcpSocket:
+               port: 8080
+             initialDelaySeconds: 30
+             periodSeconds: 6
+             timeoutSeconds: 10
+             failureThreshold: 5
+           readinessProbe:
+             tcpSocket:
+               port: 8080
+             initialDelaySeconds: 20
+             periodSeconds: 6
+             timeoutSeconds: 10
+             failureThreshold: 5
